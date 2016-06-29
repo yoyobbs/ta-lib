@@ -1,13 +1,11 @@
 # TA-Lib
 
-This is a Python wrapper for [TA-LIB](http://ta-lib.org) based on Cython
-instead of SWIG. From the homepage:
+这是基于Cython开发的[TA-Lib](http://ta-lib.org) ,替代SWIG.
+这是主页的介绍：
+> TA-Lib 适用于于交易开发人员
+> 财经市场数据技术分析
 
-> TA-Lib is widely used by trading software developers requiring to perform
-> technical analysis of financial market data.
-
-> * Includes 150+ indicators such as ADX, MACD, RSI, Stochastic, Bollinger
->   Bands, etc.
+> * 包含超过150+技术指标，如ADX,MACD,RSI,Stochastic, Bollinger,Bands等
 > * Candlestick pattern recognition
 > * Open-source API for C/C++, Java, Perl, Python and 100% Managed .NET
 
@@ -173,6 +171,7 @@ print talib.get_function_groups()
 * Cycle Indicators（循环指标）
 * Pattern Recognition（模式识别）
 * 
+
 #### Overlap Studies
 ```
 BBANDS               Boll线（Bollinger Bands）
@@ -325,6 +324,22 @@ CDLXSIDEGAP3METHODS  Upside/Downside Gap Three Methods
 ```
 
 #------------------------------------------------------------
+
+This is a Python wrapper for [TA-LIB](http://ta-lib.org) based on Cython
+instead of SWIG. From the homepage:
+
+> TA-Lib is widely used by trading software developers requiring to perform
+> technical analysis of financial market data.
+
+> * Includes 150+ indicators such as ADX, MACD, RSI, Stochastic, Bollinger
+>   Bands, etc.
+> * Candlestick pattern recognition
+> * Open-source API for C/C++, Java, Perl, Python and 100% Managed .NET
+
+The original Python bindings use [SWIG](http://swig.org) which unfortunately
+are difficult to install and aren't as efficient as they could be. Therefore
+this project uses Cython and Numpy to efficiently and cleanly bind to TA-Lib
+-- producing results 2-4 times faster than the SWIG interface.
 ### 英文原文
 You can install from PyPI:
 
