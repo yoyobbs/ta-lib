@@ -82,8 +82,7 @@ close = numpy.random.random(100)
 output = talib.SMA(close)
 ```
 
-计算boll指标（布林线指标），带三指数移动平均线（有关三指数移动平均线解释）
-Calculating bollinger bands, with triple exponential moving average:
+计算boll指标（布林线指标），带三指数移动平均线（有关[三指数移动平均线](http://reference.wolfram.com/language/ref/indicator/TripleExponentialMovingAverage.html)解释）
 
 ```python
 from talib import MA_Type
@@ -91,28 +90,23 @@ from talib import MA_Type
 upper, middle, lower = talib.BBANDS(close, matype=MA_Type.T3)
 ```
 
-Calculating momentum of the close prices, with a time period of 5:
+计算收市价上涨趋势，以5日为一周期：
 
 ```python
 output = talib.MOM(close, timeperiod=5)
 ```
 
-## Abstract API
+## 抽象 API
+如果你已经熟悉并使用功能API，应该可以轻松自如地使用抽象API
 
-If you're already familiar with using the function API, you should feel right
-at home using the Abstract API.
+每个接口都需要使用集合（collection）为输入参数，即使是``dict`` 、``numpy.ndarray``、``pandas.Series``、 ``pandas.DataFrame``.如果是``pandas.DataFrame``，则输出以``pandas.DataFrame``命名的列.
 
-Every function takes a collection of named inputs, either a ``dict`` of
-``numpy.ndarray`` or ``pandas.Series``, or a ``pandas.DataFrame``. If a
-``pandas.DataFrame`` is provided, the output is returned as a
-``pandas.DataFrame`` with named output columns.
-
-For example, inputs could be provided for the typical "OHLCV" data:
+例如，输入一个典型的数据"OHLCV":
 
 ```python
 import numpy as np
 
-# note that all ndarrays must be the same length!
+# 注意所有ndarrays必须长度一致!
 inputs = {
     'open': np.random.random(100),
     'high': np.random.random(100),
@@ -121,8 +115,7 @@ inputs = {
     'volume': np.random.random(100)
 }
 ```
-
-Functions can either be imported directly or instantiated by name:
+函数既可以直接输入也可以通过name实例化
 
 ```python
 from talib import abstract
@@ -134,30 +127,26 @@ sma = abstract.SMA
 sma = abstract.Function('sma')
 ```
 
-From there, calling functions is basically the same as the function API:
+由此，调用函数与基本的函数API功能相同
 
 ```python
 from talib.abstract import *
 
-# uses close prices (default)
+# 使用收盘价 (默认)
 output = SMA(inputs, timeperiod=25)
 
-# uses open prices
+# 使用开盘价
 output = SMA(inputs, timeperiod=25, price='open')
 
-# uses close prices (default)
+# 使用收盘价（默认）
 upper, middle, lower = BBANDS(inputs, 20, 2, 2)
 
-# uses high, low, close (default)
+# 使用最高价格，最低价，收盘价（默认）
 slowk, slowd = STOCH(inputs, 5, 3, 0, 3, 0) # uses high, low, close by default
 
-# uses high, low, open instead
+# 使用最高价格，最低价，开盘价
 slowk, slowd = STOCH(inputs, 5, 3, 0, 3, 0, prices=['high', 'low', 'open'])
 ```
-
-
-
-
 
 
 You can install from PyPI:
