@@ -17,6 +17,48 @@ this project uses Cython and Numpy to efficiently and cleanly bind to TA-Lib
 -- producing results 2-4 times faster than the SWIG interface.
 
 ## Installation
+安装方法
+1、通过PYPI安装
+```
+$ pip install TA-Lib
+```
+2、下载源码，执行``setup.py`` 安装
+```
+$ python setup.py install
+```
+### 故障排除
+安装的时候可能会有以下错误：
+```
+func.c:256:28: fatal error: ta-lib/ta_libc.h: No such file or directory
+compilation terminated.
+```
+这个意思是找不到底层``TA-Lib``库，需要安装依赖库
+### 安装依赖库
+python要使用TA-Lib，你需要确保[TA-Lib]已经安装(http://ta-lib.org/hdr_dw.html) 
+
+##### Mac OS X
+
+```
+$ brew install ta-lib
+```
+##### Windows
+
+下载 [ta-lib-0.4.0-msvc.zip](http://prdownloads.sourceforge.net/ta-lib/ta-lib-0.4.0-msvc.zip)
+并解压到 ``C:\ta-lib``
+
+##### Linux
+
+下载 [ta-lib-0.4.0-src.tar.gz](http://prdownloads.sourceforge.net/ta-lib/ta-lib-0.4.0-src.tar.gz):
+```
+$ untar and cd
+$ ./configure --prefix=/usr
+$ make
+$ sudo make install
+```
+
+> 如果你编译 ``TA-Lib`` 时使用 ``make -jX`` 会报错，但是是正常的。
+> 只需要重新运行``make -jX`` 然后 ``[sudo] make install``.
+
 
 You can install from PyPI:
 
