@@ -18,11 +18,11 @@ this project uses Cython and Numpy to efficiently and cleanly bind to TA-Lib
 
 ## Installation
 安装方法
-1、通过PYPI安装
+通过PYPI安装
 ```
 $ pip install TA-Lib
 ```
-2、下载源码，执行``setup.py`` 安装
+下载源码，执行``setup.py`` 安装
 ```
 $ python setup.py install
 ```
