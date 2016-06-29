@@ -59,6 +59,106 @@ $ sudo make install
 > 如果你编译 ``TA-Lib`` 时使用 ``make -jX`` 会报错，但是是正常的。
 > 只需要重新运行``make -jX`` 然后 ``[sudo] make install``.
 
+## API接口
+
+类似 TA-Lib, API 接口提供一个轻量级的TA-Lib指标.
+
+除非指定参数，每个接口根据默认参数返回并输出数组。通常这些接口会有一个初始"lookback"值（在生成输出值前的一个必须值）设置为``NaN``.
+
+为了方便，接口支持两种方式：``numpy.ndarray``和``pandas.Series`` .
+
+以下例子使用了TA-Lib的功能接口
+
+```python
+import numpy
+import talib
+
+close = numpy.random.random(100)
+```
+
+计算一个简单的收市移动平均价
+
+```python
+output = talib.SMA(close)
+```
+
+计算boll指标（布林线指标），带三指数移动平均线（有关三指数移动平均线解释）
+Calculating bollinger bands, with triple exponential moving average:
+
+```python
+from talib import MA_Type
+
+upper, middle, lower = talib.BBANDS(close, matype=MA_Type.T3)
+```
+
+Calculating momentum of the close prices, with a time period of 5:
+
+```python
+output = talib.MOM(close, timeperiod=5)
+```
+
+## Abstract API
+
+If you're already familiar with using the function API, you should feel right
+at home using the Abstract API.
+
+Every function takes a collection of named inputs, either a ``dict`` of
+``numpy.ndarray`` or ``pandas.Series``, or a ``pandas.DataFrame``. If a
+``pandas.DataFrame`` is provided, the output is returned as a
+``pandas.DataFrame`` with named output columns.
+
+For example, inputs could be provided for the typical "OHLCV" data:
+
+```python
+import numpy as np
+
+# note that all ndarrays must be the same length!
+inputs = {
+    'open': np.random.random(100),
+    'high': np.random.random(100),
+    'low': np.random.random(100),
+    'close': np.random.random(100),
+    'volume': np.random.random(100)
+}
+```
+
+Functions can either be imported directly or instantiated by name:
+
+```python
+from talib import abstract
+
+# directly
+sma = abstract.SMA
+
+# or by name
+sma = abstract.Function('sma')
+```
+
+From there, calling functions is basically the same as the function API:
+
+```python
+from talib.abstract import *
+
+# uses close prices (default)
+output = SMA(inputs, timeperiod=25)
+
+# uses open prices
+output = SMA(inputs, timeperiod=25, price='open')
+
+# uses close prices (default)
+upper, middle, lower = BBANDS(inputs, 20, 2, 2)
+
+# uses high, low, close (default)
+slowk, slowd = STOCH(inputs, 5, 3, 0, 3, 0) # uses high, low, close by default
+
+# uses high, low, open instead
+slowk, slowd = STOCH(inputs, 5, 3, 0, 3, 0, prices=['high', 'low', 'open'])
+```
+
+
+
+
+
 
 You can install from PyPI:
 
